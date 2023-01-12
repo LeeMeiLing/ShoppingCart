@@ -27,7 +27,10 @@ public class Main{
         Path directoryPath = FileSystems.getDefault().getPath(args[0].trim());
         File directory = directoryPath.toFile();
         File[] allFiles = directory.listFiles();
-        System.out.printf("There are %d carts in %s directory\n", allFiles.length, args[0].trim());
+        System.out.println("Using " + args[0].trim() + " directory for persistence");
+        System.out.printf("There " + (allFiles.length == 1? "is" : "are") +" %d " + (allFiles.length == 1? "cart" : "carts") + " in %s directory\n", 
+        allFiles.length, args[0].trim());
+        
 
         for (File f:allFiles){
             System.out.printf("%s\n", f.getName());
@@ -168,20 +171,7 @@ public class Main{
 
         }
 
-        
-
-
-        
-        
-
-    
-        // ShoppingCart mycart = new ShoppingCart("Mei Ling");
-        // String[] items = {"toy", "vege"," ", "apples"};
-        // mycart.addToCart(items);
-        // mycart.listCart();
-        // mycart.deleteItem("     hello testing   ");
-
     }
 
-    
+
 }

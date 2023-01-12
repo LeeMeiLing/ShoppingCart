@@ -1,5 +1,6 @@
 package shoppingCartProject;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,6 +49,23 @@ public class ShoppingCart {
 
     }
 
+    //overload listCart method for server-client app
+    public void listCart(PrintWriter pw) {
+
+        if (itemList.isEmpty()) {
+
+            pw.printf("%s's cart is empty, please add items to the cart\n",cartOwner);
+        
+        } else {
+
+            pw.printf("%d items in the cart\n",itemList.size());
+                
+            for (int i=0; i< itemList.size(); i++) {
+                pw.printf("%d. %s\n", i+1, itemList.get(i));
+            }
+        }
+
+    }
     // add method, duplicate items not added
     public void addToCart(String[] items) {
 
@@ -69,6 +87,27 @@ public class ShoppingCart {
     
     }
 
+    
+    public void addToCart(String[] items, PrintWriter pw) {
+
+        List<String> added = new LinkedList<>();
+        for (String item : items) {
+
+            if(!(item.isBlank())){
+
+                if(! (this.itemList.contains(item))) {
+                    this.itemList.add(item);
+                    added.add(item);
+                }             
+            }
+        }
+        
+        if (!(added.isEmpty())) {
+            pw.println(added + " added to cart");
+        }
+    
+    }
+
     // delete method
     public void deleteItem(String itemNumber) {
 
@@ -78,6 +117,7 @@ public class ShoppingCart {
             item = Integer.parseInt(itemNumber.trim());
             if ((item > 0) && (item <= itemList.size())) {
                 System.out.printf(itemList.remove(item-1) + " removed from cart\n");
+                listCart();
 
             } else {
                 System.out.printf("please enter a valid number to delete item\n",item);
@@ -88,7 +128,25 @@ public class ShoppingCart {
     
     }
 
+    //overload deleteItem method for server-client app
+    public void deleteItem(String itemNumber, PrintWriter pw) {
 
+        int item = 0;
+
+        try{
+            item = Integer.parseInt(itemNumber.trim());
+            if ((item > 0) && (item <= itemList.size())) {
+                pw.printf(itemList.remove(item-1) + " removed from cart\n");
+                listCart(pw);
+
+            } else {
+                pw.printf("please enter a valid number to delete item\n",item);
+            }
+        }catch (NumberFormatException e){
+            pw.printf("please enter a valid number to delete item\n",item);
+        }
+    
+    }
 
 }
     
