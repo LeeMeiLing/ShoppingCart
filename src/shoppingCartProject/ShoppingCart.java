@@ -75,12 +75,13 @@ public class ShoppingCart {
             if(!(item.isBlank())){
 
                 if(! (this.itemList.contains(item))) {
-                    this.itemList.add(item);
+                    this.itemList.add(item); // actual item added to shopping cart happen here
                     added.add(item);
                 }             
             }
         }
         
+        // store items added to "added list" for printout only
         if (!(added.isEmpty())) {
             System.out.println(added + " added to cart");
         }
@@ -88,6 +89,7 @@ public class ShoppingCart {
     }
 
     
+    //overloaded addToCart method for server-client app
     public void addToCart(String[] items, PrintWriter pw) {
 
         List<String> added = new LinkedList<>();

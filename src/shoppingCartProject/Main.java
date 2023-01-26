@@ -71,6 +71,7 @@ public class Main{
                         //System.out.println("File exist"); // testing
 
                         try {
+                            // read from file and store to shoppingCart instance
                             reader = new FileReader(file);
                             br = new BufferedReader(reader);
                             
